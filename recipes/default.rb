@@ -59,10 +59,10 @@ template "#{conf_path}" do
   notifies :restart, "service[zuul]"
   variables({
     :jenkins_url => node[:zuul][:jenkins][:url],
-    :jenkins_user => node[:zuul][:jenkins][:user]
+    :jenkins_user => node[:zuul][:jenkins][:user],
     :jenkins_apikey => node[:zuul][:jenkins][:apikey],
     :gerrit_url => node[:zuul][:gerrit][:url],
-    :gerrit_user => node[:zuul][:gerrit][:user]
+    :gerrit_user => node[:zuul][:gerrit][:user],
     :gerrit_sshkey => node[:zuul][:gerrit][:sshkey],
     :zuul_layout_conf_path => layout_conf_path,
     :zuul_logging_conf_path => logging_conf_path,
