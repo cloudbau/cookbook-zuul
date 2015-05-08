@@ -28,7 +28,15 @@ user node[:zuul][:user] do
   home node[:zuul][:home]
 end
 
+group node[:zuul][:group]
+
 directory node[:zuul][:home] do
+  recursive true
+  owner node[:zuul][:user]
+  group node[:zuul][:group]
+end
+
+directory node['zuul']['log_dir'] do
   recursive true
   owner node[:zuul][:user]
   group node[:zuul][:group]
@@ -118,6 +126,14 @@ template node['zuul']['conf_path'] do
 end
 
 template node['zuul']['logging_conf_path'] do
+  source 'logging.conf.erb'
+  notifies :restart, 'service[zuul]'
+  variables(
+    zuul_log_dir: node['zuul']['log_dir']
+  )
+end
+
+template '/etc/zuul/gearman-logging.conf' do
   source 'logging.conf.erb'
   notifies :restart, 'service[zuul]'
   variables(
