@@ -9,14 +9,14 @@ Requirements
 Platform
 --------
 
-* Debian, Ubuntu
-* CentOS, Red Hat, Fedora
-* Amazon AWS
+* Ubuntu 14.04
 
 Cookbooks
 ---------
 
 * default
+* server
+* webapp
 
 Attributes
 ==========
@@ -35,8 +35,11 @@ License and Author
 ==================
 
 Author:: Jay Pipes (<jaypipes@gmail.com>)
+Author:: Edmund Haselwanter (<me@ehaselwanter.com>)
+Author:: Jürgen Brüder (<hello@juergenbrueder.com>)
 
 Copyright:: 2012, Jay Pipes
+Copyright:: 2015, Edmund Haselwanter / Jürgen Brüder
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
