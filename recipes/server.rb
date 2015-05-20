@@ -159,6 +159,6 @@ end
 
 service 'zuul' do
   supports [:stop, :start, :restart, :status]
-  status_command "test -f #{pid_file} && kill -0 `cat #{pid_file}`"
+  # status_command "test -f #{node['zuul'][pidfile]} && kill -0 `cat #{node['zuul'][pidfile]}`"
   action :nothing
 end
