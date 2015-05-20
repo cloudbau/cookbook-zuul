@@ -147,14 +147,6 @@ template node['zuul']['layout_conf_path'] do
   notifies :restart, 'service[zuul]'
 end
 
-case node.platform
-when 'ubuntu', 'debian'
-  install_starts_service = true
-when 'centos', 'redhat'
-  pid_file = '/var/run/zuul.pid'
-  install_starts_service = false
-end
-
 template '/etc/init.d/zuul' do
   source 'zuul.init.erb'
   mode 0755
