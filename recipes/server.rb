@@ -122,7 +122,7 @@ template node['zuul']['conf_path'] do
     swift_default_logserver_prefix: node['zuul']['swift_default_logserver_prefix'],
     swift_default_expiry: node['zuul']['swift_default_expiry'],
     proxy_ssl_cert_file_contents: node['zuul']['proxy_ssl_cert_file_contents'],
-    proxy_ssl_key_file_contents: node['zuul']['proxy_ssl_key_file_contents'],
+    proxy_ssl_key_file_contents: node['zuul']['proxy_ssl_key_file_contents']
 )
 end
 
