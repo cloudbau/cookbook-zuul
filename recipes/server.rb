@@ -157,6 +157,11 @@ template '/etc/init.d/zuul-merger' do
   mode 0755
 end
 
+template '/etc/zuul/merger-logging.conf' do
+  source 'merger-logging.conf.erb'
+  mode 0644
+end
+
 service 'zuul' do
   supports [:stop, :start, :restart, :status]
   # status_command "test -f #{node['zuul'][pidfile]} && kill -0 `cat #{node['zuul'][pidfile]}`"
