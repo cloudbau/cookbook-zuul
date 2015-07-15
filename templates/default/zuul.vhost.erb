@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-  ServerName <%= @vhost_name %>
-  ServerAdmin <%= @serveradmin %>
+  ServerName <%= @params[:vhost_name] %>
+  ServerAdmin <%= @params[:serveradmin] %>
   DocumentRoot /var/lib/zuul/www
 
   <Directory /var/lib/zuul/www>
@@ -12,15 +12,20 @@
     Satisfy Any
   </Directory>
 
-  ErrorLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-error.log
+  ErrorLog ${APACHE_LOG_DIR}/<%= @params[:vhost_name] %>-error.log
 
   LogLevel warn
 
-  CustomLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-access.log combined
+  CustomLog ${APACHE_LOG_DIR}/<%= @params[:vhost_name] %>-access.log combined
 
   RewriteEngine on
   RewriteRule ^/status.json$ http://127.0.0.1:8001/status.json [P]
   RewriteRule ^/status/(.*) http://127.0.0.1:8001/status/$1 [P]
+
+  <LocationMatch "^/status.json$">
+    Allow from all
+    Satisfy Any
+  </LocationMatch>
 
   AddOutputFilterByType DEFLATE application/json
 
@@ -53,16 +58,13 @@
 <% if @proxy_ssl_cert_file_contents != '' %>
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
-  ServerName <%= @vhost_name %>
-  ServerAdmin <%= @serveradmin %>
+  ServerName <%= @params[:vhost_name] %>
+  ServerAdmin <%= @params[:serveradmin] %>
   DocumentRoot /var/lib/zuul/www
   SSLEngine on
   SSLProtocol All -SSLv2 -SSLv3
-  SSLCertificateFile /etc/ssl/certs/<%= @vhost_name %>.pem
-  SSLCertificateKeyFile /etc/ssl/private/<%= @vhost_name %>.key
-<% if @proxy_ssl_chain_file_contents != '' %>
-  SSLCertificateChainFile /etc/ssl/certs/<%= @vhost_name %>_intermediate.pem
-<% end %>
+  SSLCertificateFile /etc/ssl/private/<%= @params[:vhost_name] %>.pem
+  SSLCertificateKeyFile /etc/ssl/private/<%= @params[:vhost_name] %>.pem
 
   <Directory /var/lib/zuul/www>
     Allow from all
@@ -73,11 +75,11 @@
     Satisfy Any
   </Directory>
 
-  ErrorLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-error.log
+  ErrorLog ${APACHE_LOG_DIR}/<%= @params['vhost_name'] %>-error.log
 
   LogLevel warn
 
-  CustomLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-access.log combined
+  CustomLog ${APACHE_LOG_DIR}/<%= @params['vhost_name'] %>-access.log combined
 
   RewriteEngine on
   RewriteRule ^/status.json$ http://127.0.0.1:8001/status.json [P]
